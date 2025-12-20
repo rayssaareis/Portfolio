@@ -55,6 +55,33 @@ function setupSectionHighlightOnScroll() {
   });
 }
 
+/* Parte do codigo bugado */
+  /**
+ * Script para animação suave da lista de redes sociais
+ * A animação ocorre apenas no carregamento da página (DOMContentLoaded)
+ */
+function setupSocialLinksAnimation() {
+  // Seleciona todos os links de redes sociais
+  const socialLinks = document.querySelectorAll(".social-link");
+
+  // Verifica se existem links para animar
+  if (socialLinks.length === 0) {
+    return;
+  }
+
+  /**
+   * Adiciona a classe 'social-enter' a cada link com um pequeno delay
+   * Isso cria o efeito em cascata (cada item aparece um pouco depois do anterior)
+   */
+  socialLinks.forEach((link, index) => {
+    // Delay escalonado: primeiro item aparece imediatamente, os outros seguem
+    setTimeout(() => {
+      link.classList.add("social-enter");
+    }, index * 100); // 100ms de diferença entre cada item
+  });
+}
+/* Parte do codigo bugado */
+
 function setupScrollReveal() {
   const sections = document.querySelectorAll('main section');
 
@@ -80,6 +107,9 @@ function setupScrollReveal() {
     }
   );
 
+
+
+
   sections.forEach((section) => observer.observe(section));
 }
 
@@ -87,4 +117,5 @@ document.addEventListener('DOMContentLoaded', () => {
   setupMobileMenu();
   setupSectionHighlightOnScroll();
   setupScrollReveal();
+  setupSocialLinksAnimation();
 });
