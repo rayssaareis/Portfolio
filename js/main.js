@@ -126,37 +126,6 @@ function setupHeroEntrance() {
 }
 
 // ==============================
-// Parallax — SOMENTE no orb
-// ==============================
-function setupHeroParallax() {
-  const hero = document.querySelector('.hero-center-visual');
-  const orbInner = document.querySelector('.hero-orb-inner');
-
-  if (!hero || !orbInner) return;
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
-
-  if (prefersReducedMotion || !isDesktop) return;
-
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const moveX = (x / rect.width - 0.5) * 8;
-    const moveY = (y / rect.height - 0.5) * 8;
-
-    orbInner.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  });
-
-  hero.addEventListener('mouseleave', () => {
-    orbInner.style.transform = 'translate(0, 0)';
-  });
-}
-
-// ==============================
 // Inicialização geral
 // ==============================
 document.addEventListener('DOMContentLoaded', () => {
@@ -165,5 +134,4 @@ document.addEventListener('DOMContentLoaded', () => {
   setupScrollReveal();
   setupSocialLinksAnimationOnScroll();
   setupHeroEntrance();
-  setupHeroParallax();
 });
