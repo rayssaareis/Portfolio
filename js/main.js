@@ -23,6 +23,31 @@ function setupMobileMenu() {
   });
 }
 
+
+// ==============================
+// Parallax do orb do hero
+// ==============================
+
+const orb = document.querySelector('.hero-orb');
+
+function updateOrb(x, y) {
+  // Sempre parte do ponto central (-50%, -50%)
+  orb.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+}
+
+// Parallax pelo mouse
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX - window.innerWidth / 2) / 50;
+  const y = (e.clientY - window.innerHeight / 2) / 50;
+  updateOrb(x, y);
+});
+
+
+// Inicializa o orb no centro sem salto
+updateOrb(0, 0);
+
+
+
 // ==============================
 // Destaque de seção no scroll
 // ==============================

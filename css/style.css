@@ -195,6 +195,8 @@ section > .container > h2 {
 
 .hero-orb {
   position: absolute;
+  top: 50%;
+  left: 50%;
   width: 340px;
   height: 340px;
   border-radius: 50%;
@@ -207,10 +209,15 @@ section > .container > h2 {
     rgba(127, 98, 255, 0.555) 70%
   );
 
+  /* animação só de opacidade e scale */
   animation: orb-float-in 600ms ease-out forwards;
 
   transition: transform 300ms ease;
+
+  transform: translate(-50%, -50%); /* ponto inicial centralizado */
 }
+
+
 
 .hero-person {
   position: relative;
@@ -286,6 +293,18 @@ section > .container > h2 {
   animation: heroTitleIn 0.7s ease-out forwards;
   animation-delay: 0.15s;
 }
+
+@keyframes orb-float-in {
+  0% {
+    opacity: 0;
+    scale: 0.8; /* escala inicial */
+  }
+  100% {
+    opacity: 1;
+    scale: 1;   /* escala final */
+  }
+}
+
 
 @keyframes heroTitleIn {
   0% {
