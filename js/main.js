@@ -1,6 +1,6 @@
-// Arquivo base de JavaScript do portfólio.
-// Interações serão adicionadas apenas quando realmente necessárias.
-
+// ==============================
+// Menu mobile
+// ==============================
 function setupMobileMenu() {
   const header = document.getElementById('site-header');
   const toggleButton = document.querySelector('.menu-toggle');
@@ -23,11 +23,14 @@ function setupMobileMenu() {
   });
 }
 
+// ==============================
+// Destaque de seção no scroll
+// ==============================
 function setupSectionHighlightOnScroll() {
   const navLinks = document.querySelectorAll('#nav-links a');
 
   navLinks.forEach((link) => {
-    link.addEventListener('click', (event) => {
+    link.addEventListener('click', () => {
       navLinks.forEach((l) => l.classList.remove('nav-link-active'));
       link.classList.add('nav-link-active');
 
@@ -44,7 +47,6 @@ function setupSectionHighlightOnScroll() {
       const heading = section.querySelector('h2') || section.querySelector('h1');
       if (!heading) return;
 
-      // Aguarda o scroll suave terminar antes de aplicar o destaque
       setTimeout(() => {
         heading.classList.add('section-highlight');
         setTimeout(() => {
@@ -55,39 +57,43 @@ function setupSectionHighlightOnScroll() {
   });
 }
 
-/* Parte do codigo bugado */
-  /**
- * Script para animação suave da lista de redes sociais
- * A animação ocorre apenas no carregamento da página (DOMContentLoaded)
- */
-function setupSocialLinksAnimation() {
-  // Seleciona todos os links de redes sociais
-  const socialLinks = document.querySelectorAll(".social-link");
+// ==============================
+// Animação das redes sociais
+// ==============================
+function setupSocialLinksAnimationOnScroll() {
+  const container = document.querySelector('.social-links');
+  const socialLinks = document.querySelectorAll('.social-link');
 
-  // Verifica se existem links para animar
-  if (socialLinks.length === 0) {
-    return;
-  }
+  if (!container || socialLinks.length === 0) return;
+  if (!('IntersectionObserver' in window)) return;
 
-  /**
-   * Adiciona a classe 'social-enter' a cada link com um pequeno delay
-   * Isso cria o efeito em cascata (cada item aparece um pouco depois do anterior)
-   */
-  socialLinks.forEach((link, index) => {
-    // Delay escalonado: primeiro item aparece imediatamente, os outros seguem
-    setTimeout(() => {
-      link.classList.add("social-enter");
-    }, index * 100); // 100ms de diferença entre cada item
-  });
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        socialLinks.forEach((link, index) => {
+          setTimeout(() => {
+            link.classList.add('social-enter');
+          }, index * 80);
+        });
+
+        obs.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  observer.observe(container);
 }
-/* Parte do codigo bugado */
 
+// ==============================
+// Reveal das seções
+// ==============================
 function setupScrollReveal() {
   const sections = document.querySelectorAll('main section');
 
-  if (!('IntersectionObserver' in window) || sections.length === 0) {
-    return;
-  }
+  if (!('IntersectionObserver' in window) || sections.length === 0) return;
 
   sections.forEach((section) => {
     section.classList.add('reveal-section');
@@ -102,20 +108,62 @@ function setupScrollReveal() {
         obs.unobserve(entry.target);
       });
     },
-    {
-      threshold: 0.18,
-    }
+    { threshold: 0.18 }
   );
-
-
-
 
   sections.forEach((section) => observer.observe(section));
 }
 
+// ==============================
+// Animação de entrada do hero
+// ==============================
+function setupHeroEntrance() {
+  const orb = document.querySelector('.hero-orb');
+  const person = document.querySelector('.hero-person');
+
+  if (orb) orb.classList.add('hero-enter');
+  if (person) person.classList.add('hero-enter');
+}
+
+// ==============================
+// Parallax — SOMENTE no orb
+// ==============================
+function setupHeroParallax() {
+  const hero = document.querySelector('.hero-center-visual');
+  const orbInner = document.querySelector('.hero-orb-inner');
+
+  if (!hero || !orbInner) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+
+  if (prefersReducedMotion || !isDesktop) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const moveX = (x / rect.width - 0.5) * 8;
+    const moveY = (y / rect.height - 0.5) * 8;
+
+    orbInner.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  });
+
+  hero.addEventListener('mouseleave', () => {
+    orbInner.style.transform = 'translate(0, 0)';
+  });
+}
+
+// ==============================
+// Inicialização geral
+// ==============================
 document.addEventListener('DOMContentLoaded', () => {
   setupMobileMenu();
   setupSectionHighlightOnScroll();
   setupScrollReveal();
-  setupSocialLinksAnimation();
+  setupSocialLinksAnimationOnScroll();
+  setupHeroEntrance();
+  setupHeroParallax();
 });

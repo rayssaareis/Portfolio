@@ -200,22 +200,63 @@ section > .container > h2 {
   position: absolute;
   width: 320px;
   height: 320px;
-  border-radius: 999px;
-  background-color: #312e81; /* roxo escuro sólido */
-  opacity: 0.95;
-  pointer-events: none;
-  z-index: 0;
+  border-radius: 50%;
+  z-index: 1;
+
+  animation: orb-float-in 600ms ease-out forwards;
+}
+
+.hero-orb-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(120, 180, 255, 0.35),
+    rgba(30, 60, 120, 0.15) 45%,
+    rgba(0, 0, 0, 0) 70%
+  );
+
+  transition: transform 300ms ease;
 }
 
 .hero-person {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 3));
 }
 
 .hero-person img {
   display: block;
   width: 100%;
-  max-width: 4200px;
+  max-width: 470px;
+}
+
+/* =========
+   Hero entrance animation (load only)
+   ========= */
+
+.hero-person,
+.hero-orb {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+}
+
+.hero-person.hero-enter {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.35s;
+}
+
+.hero-orb.hero-enter {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
 }
 
 .hero-vertical-text {
@@ -369,11 +410,11 @@ section > .container > h2 {
   background-color: rgba(148, 163, 184, 0.6);
 }
 
-/* Parte do codigo bugado */
 
 /* =========
    Lista de Redes Sociais
    ========= */
+
 
 .social-links {
   display: flex;
@@ -434,7 +475,9 @@ section > .container > h2 {
   transition-delay: 0.8s;
 }
 
-/* Parte do codigo bugado */
+.social-link:nth-child(5) {
+  transition-delay: 0.9s;
+}
 
 
 .skills-grid {
@@ -469,6 +512,65 @@ section > .container > h2 {
 /* =========
    Seções Sobre, Projetos, Tecnologias, Contato
    ========= */
+
+   .sobre {
+  padding: 80px 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(240px, 1fr));
+  gap: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.about-card {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 20px;
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.about-card h3 {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #e5e7eb;
+  transition: color 180ms ease;
+}
+
+.about-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #9ca3af;
+}
+
+.about-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  max-width: 340px;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.14);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.about-card:hover h3 {
+  color: #ffffff;
+}
+
+.about-card:focus-visible {
+  outline: none;
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
 
 #sobre .container p,
 #contato .container p {
@@ -652,4 +754,47 @@ footer {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
   }
+}
+
+.projects {
+  display: grid;
+  gap: 32px;
+}
+
+.project-card {
+  background: #111;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.project-title {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.project-block {
+  margin-bottom: 12px;
+}
+
+.project-block h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.project-block p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #e5e7eb;
+}
+
+/* Destaque sutil para maturidade técnica */
+.project-block.decision,
+.project-block.not-done {
+  padding-left: 12px;
+  border-left: 2px solid rgba(255, 255, 255, 0.08);
 }
