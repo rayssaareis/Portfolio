@@ -195,16 +195,16 @@ section > .container > h2 {
 
 .hero-orb {
   position: absolute;
-  width: 320px;
-  height: 320px;
+  width: 340px;
+  height: 340px;
   border-radius: 50%;
   z-index: 1;
 
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(120, 180, 255, 0.35),
-    rgba(30, 60, 120, 0.15) 45%,
-    rgba(0, 0, 0, 0) 70%
+    rgba(52, 44, 87, 0.418),
+    rgba(85, 57, 212, 0.404) 45%,
+    rgba(127, 98, 255, 0.555) 70%
   );
 
   animation: orb-float-in 600ms ease-out forwards;
@@ -221,7 +221,7 @@ section > .container > h2 {
 
 .hero-person img {
   display: block;
-  width: 100%;
+  width: 110%;
   max-width: 470px;
 }
 
