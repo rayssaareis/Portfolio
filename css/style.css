@@ -516,75 +516,79 @@ section > .container > h2 {
   border-color: rgba(148, 163, 184, 0.8);
   transform: translateY(-1px);
 }
-
 /* =========
    Seções Sobre, Projetos, Tecnologias, Contato
    ========= */
 
-   .sobre {
-  padding: 80px 0;
+.sobre {
+    padding: 80px 0;
+}
+
+#sobre .section-heading {
+    margin-bottom: 40px;
 }
 
 .about-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(240px, 1fr));
-  gap: 24px;
-  max-width: 720px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
 }
 
 .about-card {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 20px;
-
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    background: rgba(13, 19, 39, 0.68);
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        background-color 180ms ease;
 }
 
 .about-card h3 {
-  font-size: 0.95rem;
-  margin-bottom: 8px;
-  color: #e5e7eb;
-  transition: color 180ms ease;
+    margin-bottom: 8px;
+    color: #e5e7eb;
+    font-size: 0.95rem;
+    transition: color 180ms ease;
 }
 
 .about-card p {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: #9ca3af;
-}
-
-.about-card:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-  justify-self: center;
-  max-width: 340px;
+    margin: 0;
+    color: #9ca3af;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 .about-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.14);
-  background-color: rgba(255, 255, 255, 0.02);
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.14);
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
 .about-card:hover h3 {
-  color: #ffffff;
+    color: #ffffff;
 }
 
 .about-card:focus-visible {
-  outline: none;
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.18);
+    outline: none;
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.18);
 }
 
 #sobre .container p,
 #contato .container p {
-  max-width: 40rem;
-  font-size: 1rem;
-  color: #e2e8f0;
+    max-width: 40rem;
+    font-size: 1rem;
+    color: #e2e8f0;
+}
+
+@media (max-width: 760px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* =========
@@ -800,7 +804,6 @@ footer {
   color: #e5e7eb;
 }
 
-/* Destaque sutil para maturidade técnica */
 .project-block.decision,
 .project-block.not-done {
   padding-left: 12px;
